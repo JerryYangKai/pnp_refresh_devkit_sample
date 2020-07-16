@@ -1,0 +1,27 @@
+{
+    "@id": "dtmi:com:mxchip:mxchip_iot_devkit:example:PnPGetStarted;1",
+    "@type": "Interface",
+    "displayName": "PnPGetStarted",
+    "description": "Reports current temperature , humidity and pressure from MXCHIP IoT Devkit.",
+    "contents": [
+      {
+        "@type": "Telemetry",
+        "name": "temperature",
+        "displayName" : "Temperature",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "humidity",
+        "displayName" : "Humidity",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "pressure",
+        "displayName" : "Pressure",
+        "schema": "double"
+      }
+    ],
+    "@context": "dtmi:dtdl:context;2"
+  }

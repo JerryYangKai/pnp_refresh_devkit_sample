@@ -14,10 +14,11 @@ int messageCount = 1;
 int sentMessageCount = 0;
 static bool messageSending = true;
 static uint64_t send_interval_ms;
-static const char model_id[] = "dtmi:com:example:Thermostat;1";
+static const char model_id[] = "dtmi:com:mxchip:mxchip_iot_devkit:example:PnPGetStarted;1";
 
 static float temperature;
 static float humidity;
+static float pressure;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Utilities
@@ -152,9 +153,8 @@ void loop()
       // Send teperature data
       char messagePayload[MESSAGE_MAX_LEN];
 
-      bool temperatureAlert = readMessage(messageCount, messagePayload, &temperature, &humidity);
+      readMessage(messageCount, messagePayload, &temperature, &humidity, &pressure);
       EVENT_INSTANCE* message = DevKitMQTTClient_Event_Generate(messagePayload, MESSAGE);
-      DevKitMQTTClient_Event_AddProp(message, "temperatureAlert", temperatureAlert ? "true" : "false");
       DevKitMQTTClient_SendEventInstance(message);
       
       send_interval_ms = SystemTickCounterRead();
