@@ -15,6 +15,7 @@ int sentMessageCount = 0;
 static bool messageSending = true;
 static uint64_t send_interval_ms;
 static const char model_id[] = "dtmi:com:mxchip:mxchip_iot_devkit:example:PnPGetStarted;1";
+static const char sampleProperties[] = "{\"sample\": \"DevKit-PnP-GetStarted\" }";
 
 static float temperature;
 static float humidity;
@@ -86,12 +87,12 @@ static int  DeviceMethodCallback(const char *methodName, const unsigned char *pa
 
   if (strcmp(methodName, "start") == 0)
   {
-    LogInfo("Start sending temperature and humidity data");
+    LogInfo("Start sending temperature, humidity and pressure data");
     messageSending = true;
   }
   else if (strcmp(methodName, "stop") == 0)
   {
-    LogInfo("Stop sending temperature and humidity data");
+    LogInfo("Stop sending temperature, humidity and pressure data");
     messageSending = false;
   }
   else
@@ -133,12 +134,15 @@ void setup()
   SensorInit();
 
   Screen.print(3, " > IoT Hub");
-  DevKitMQTTClient_SetOption(OPTION_MINI_SOLUTION_NAME, "DevKit-GetStarted");
+  DevKitMQTTClient_SetOption(OPTION_MINI_SOLUTION_NAME, "DevKit-PnP-GetStarted");
   DevKitMQTTClient_Init(true, false, model_id);
   DevKitMQTTClient_SetSendConfirmationCallback(SendConfirmationCallback);
   DevKitMQTTClient_SetMessageCallback(MessageCallback);
   DevKitMQTTClient_SetDeviceTwinCallback(DeviceTwinCallback);
   DevKitMQTTClient_SetDeviceMethodCallback(DeviceMethodCallback);
+
+  EVENT_INSTANCE* message = DevKitMQTTClient_Event_Generate(sampleProperties, STATE);
+  DevKitMQTTClient_SendEventInstance(message);
 
   send_interval_ms = SystemTickCounterRead();
 }

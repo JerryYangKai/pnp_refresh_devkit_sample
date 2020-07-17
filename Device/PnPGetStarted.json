@@ -21,6 +21,25 @@
         "name": "pressure",
         "displayName" : "Pressure",
         "schema": "double"
+      },
+      {
+        "@type": "Property",
+        "name": "sample",
+        "displayName": "Devkit Sample Name",
+        "description": "Sample Name of MXCHIP IoT Devkit.",
+        "schema": "string"
+      },
+      {
+        "@type": "Command",
+        "name": "start",
+        "displayName": "Start",
+        "description": "Start sending temperature, humidity and pressure data."
+      },
+      {
+        "@type": "Command",
+        "name": "stop",
+        "displayName": "Stop",
+        "description": "Stop sending temperature, humidity and pressure data."
       }
     ],
     "@context": "dtmi:dtdl:context;2"
